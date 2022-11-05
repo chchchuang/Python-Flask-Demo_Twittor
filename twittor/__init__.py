@@ -1,10 +1,23 @@
 from flask import Flask
-from twittor.route import index, login
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from twittor.config import Config
 
+db=SQLAlchemy()
+migrate=Migrate()
+
+from twittor.route import index, login
 
 def create_app():
     app = Flask(__name__, template_folder='templates')
-    app.secret_key="anything but secret"
+    #app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///twittor.db"
+    #app.config["SQLALCHEMY_DATABASE_URI"]="mysql+pymysql://root:root@localhost:3306/twittor"
+    app.config.from_object(Config)
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+    app.secret_key="anything but secret" #for forms
+
     #原裝飾器的功能 @app.route("/")
     # map(url, endpoint) & map(endpoint, view_func)
     app.add_url_rule('/', endpoint='index', view_func=index)

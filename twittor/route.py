@@ -1,5 +1,6 @@
 from flask import render_template, redirect, url_for
 from twittor.forms import LoginForm
+from twittor.models import User, Tweet #要讓 flask知道 model存在
 
 def index():
     name = {'username': 'root'}
