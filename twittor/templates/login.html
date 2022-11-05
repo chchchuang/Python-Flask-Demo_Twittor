@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block content %}
+
+<h1>Login</h1>
+<form action="" method="post">
+  {{ form.csrf_token }}
+  <p>
+    <!-- <label for="">Username:</label>
+    <input type="text" name="" id="" /> -->
+    {{ form.username.label }} {{ form.username() }}
+  </p>
+  <p>
+    <!-- <label for="">Password:</label>
+    <input type="text" name="" id="" /> -->
+    {{ form.password.label }} {{ form.password() }}
+  </p>
+  <p>
+    <!-- <input type="checkbox" name="" id="" />
+    <label for="">Remember Me</label> -->
+    {{ form.remember_me() }} {{ form.remember_me.label }}
+  </p>
+  <p>
+    <!-- <input type="submit" value="Login" /> -->
+    {{ form.submit() }}
+  </p>
+</form>
+
+{% endblock %}
