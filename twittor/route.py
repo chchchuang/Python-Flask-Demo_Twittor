@@ -1,9 +1,11 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, request
+from flask_login import login_user, current_user, logout_user, login_required
 from twittor.forms import LoginForm
 from twittor.models import User, Tweet #要讓 flask知道 model存在
 
+@login_required
 def index():
-    name = {'username': 'root'}
+    name = {'username': current_user.username}
     posts = [
         {
             'author': {'username': 'root'},
@@ -18,13 +20,21 @@ def index():
 
 
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        msg = "username={}, password={}, remember_me={}".format(
-            form.username.data,
-            form.password.data,
-            form.remember_me.data
-        )
-        print(msg)
+        u = User.query.filter_by(username=form.username.data).first() #取第一個
+        if u is None or not u.check_password(form.password.data):
+            print("invalid username or password")
+            return redirect(url_for('login'))
+        login_user(u, remember=form.remember_me.data) #記錄登入用戶資訊
+        next_page = request.args.get('next')
+        if next_page:
+            return redirect(next_page)
         return redirect(url_for('index'))
     return render_template("login.html", title="Sign In", form=form)
+
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
