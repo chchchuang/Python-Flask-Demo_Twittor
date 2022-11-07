@@ -4,7 +4,22 @@
   <tr>
     <td><img src="{{ user.avatar() }}" alt="" /></td>
     <td>
-      <p><b>{{ user.username }}</b></p>
+      <p>
+        <b>{{ user.username }}</b>
+      </p>
+      <p>
+        <label>followers: {{ user.followers.count() }}</label>
+        <label>following: {{ user.followed.count() }}</label>
+      </p>
+
+      <form action="" method="POST">
+        {% if user != current_user %} {% if current_user.is_following(user) %}
+        <input type="submit" name="request_button" value="Unfollow" />
+        {% else %}
+        <input type="submit" name="request_button" value="Follow" />
+        {% endif %} {% endif %}
+      </form>
+
       {% if user.about_me %}
       <p>About me:{{ user.about_me }}</p>
       {% endif %} {% if user.create_time %}

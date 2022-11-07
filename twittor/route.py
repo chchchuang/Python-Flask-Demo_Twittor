@@ -52,7 +52,7 @@ def register():
     return render_template("register.html", title="Registeration", form=form)
 
 @login_required
-def user(username):
+def user(username): #參數來自網址
     u = User.query.filter_by(username=username).first()
     if u is None:
         abort(404)
@@ -66,6 +66,14 @@ def user(username):
             'body': "hi I'm {}!".format(u.username)
         }
     ]
+    if request.method == 'POST':
+        # print(request.form.to_dict()) #key: submit.name, value: submit.value
+        if request.form['request_button'] == 'Follow':
+            current_user.follow(u)
+            db.session.commit()
+        else:
+            current_user.unfollow(u)
+            db.session.commit()
     return render_template("user.html", title="Profile", user=u, posts=posts)
 
 def page_not_found(e):
