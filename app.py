@@ -24,6 +24,7 @@ if __name__ == '__main__':
 增
 >>> from twittor.models import User, Tweet
 >>> u = User(username='admin', email='admin@admin.com')
+>>> u.set_password('admin')
 >>> db.session.add(u)
 >>> db.session.commit()
 >>> u = User(username='test1', email='test1@admin.com')
