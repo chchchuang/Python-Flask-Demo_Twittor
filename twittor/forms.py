@@ -6,7 +6,7 @@ from twittor.models import User
 class LoginForm(FlaskForm):
     class Meta:
         csrf = False
-    username = StringField("Username", validators=[DataRequired()])
+    username = StringField("Username", validators=[DataRequired()]) # username:方法, "Username":lable
     password = PasswordField("Password", validators=[DataRequired()])
     remember_me = BooleanField("Remember Me")
     submit = SubmitField("Sign In")
@@ -30,3 +30,7 @@ class RegisterForm(FlaskForm):
 class EditProfileForm(FlaskForm):
     about_me = TextAreaField("About me", validators=[Length(min=0, max=120)])
     submit = SubmitField("Save")
+
+class TweetForm(FlaskForm):
+    tweet = TextAreaField("Tweet", validators=[DataRequired(), Length(min=0, max=140)])
+    submit = SubmitField("Tweet")

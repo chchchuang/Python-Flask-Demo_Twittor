@@ -8,7 +8,7 @@ from twittor.config import Config
 db=SQLAlchemy()
 migrate=Migrate()
 login_manager=LoginManager()
-login_manager.login_view = 'login'
+login_manager.login_view = 'login' # 未登入時查看的頁面
 
 from twittor.route import index, login, logout, register, user, page_not_found, edit_profile
 
@@ -24,13 +24,14 @@ def create_app():
 
     #原裝飾器的功能 @app.route("/")
     # map(url, endpoint) & map(endpoint, view_func)
-    app.add_url_rule('/', endpoint='index', view_func=index)
-    app.add_url_rule('/index', 'index', index)
+    # url_for(endpoint) 由 endpoint找到相關聯的 url, view_func 2023/3/2
+    app.add_url_rule('/', endpoint='index', view_func=index, methods=['GET','POST'])
+    app.add_url_rule('/index', 'index', index, methods=['GET','POST'])
     app.add_url_rule('/login', 'login', login, methods=['GET','POST'])
     app.add_url_rule('/logout', 'logout', logout)
     app.add_url_rule('/register', 'register', register, methods=['GET','POST'])
     app.add_url_rule('/<username>', 'profile', user, methods=['GET','POST'])
     app.add_url_rule('/edit_profile', 'edit_profile', edit_profile, methods=['GET','POST'])
-    app.register_error_handler(404, page_not_found)
+    app.register_error_handler(404, page_not_found) #abort 404錯誤代碼後執行 page_not_found func
     return app
  

@@ -3,8 +3,9 @@
 <h1>Create New User</h1>
 <form action="" method="post">
   {{ form.hidden_tag() }}
-  <!--WTF文檔-->
+  <!--WTF文檔自己看 Validating Forms-->
   <p>
+    <!--errors來自於 validators -->
     {{ form.username.label }} {{ form.username() }} {% for error in
     form.username.errors %}
     <span style="color: red">[{{ error }}]</span>

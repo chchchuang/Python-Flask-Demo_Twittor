@@ -1,8 +1,10 @@
-# flask-migrate方法失效,改用 cli方式進行 migrate
+# 啟動 venv: 1.cd到 venv folder  2.source bin/activate
+# flask-migrate: manager方法失效,改用 cli方式進行 migrate
 '''
->>> flask db init
->>> flask db migrate -m "create user" #表
+>>> flask db init # 初始化目錄 migrations folder
+>>> flask db migrate -m "create user, tweet" #表
 >>> flask db migrate -m "add phone" #項目
+>>> flask db migrate -m "add new columns for user" #一次多項
 >>> flask db current #目前版本號
 >>> flask db upgrade #進版 執行後才會在SQLite看到表等更新項目
 >>> flask db downgrade #退版 MySQL可以drop, SQLite不能drop
@@ -14,7 +16,7 @@
 >>> app=create_app()
 >>> db
 <SQLAlchemy>
->>> app.app_context().push()
+>>> app.app_context().push() # 需進入 app的上下文內才能知道 db的配置
 >>> db
 <SQLAlchemy sqlite:////Users/chchchuang/Desktop/SideProject/lesson/udemy_Flask/TWITTOR/twittor/twittor.db>
 >>> from twittor.models import User, Tweet
@@ -24,15 +26,21 @@
 >>> u.set_password('admin')
 >>> db.session.add(u)
 >>> db.session.commit()
->>> u = User(username='test1', email='test1@admin.com')
->>> db.session.add(u)
+>>> u1 = User(username='test1', email='test1@admin.com')
+>>> u2 = User(username='test2', email='test2@admin.com')
+>>> u = [u1, u2]
+>>> db.session.add_all(u)
 >>> db.session.commit()
 
 ## 查
 >>> User.query.all()
 [id=1, username=admin, email=admin@admin.com, password_hash=None, id=2, username=test1, email=test1@admin.com, password_hash=None]
->>> User.query.get(1)
+>>> User.query.get(1) # get id==1的 user
 id=1, username=admin, email=admin@admin.com, password_hash=None
+# 補充篩選
+>>> User.query.filter_by(username=admin).first()
+# 補充排序
+>>> User.query.filter_by(username=admin).order_by("value desc")
 
 ## 刪
 >>> u = User.query.get(2)
