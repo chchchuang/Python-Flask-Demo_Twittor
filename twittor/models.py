@@ -1,8 +1,11 @@
 from datetime import datetime
 from hashlib import md5
+import time
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from flask import current_app
+import jwt
 
 from twittor import db, login_manager
 #記錄follow關係,沒定義class是因為是表示外來物件的關係
@@ -62,6 +65,29 @@ class User(UserMixin, db.Model): #大寫User是class, 默認小寫user是實例(
         own = Tweet.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Tweet.create_time.desc())
         #union:聯集
+    
+    def get_jwt(self, expire=7200):
+        return jwt.encode(
+            {
+                'email': self.email,
+                'exp': time.time() + expire
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm='HS256'
+        ) #.decode('utf-8') -> AttributeError: 'str' object has no attribute 'decode'
+
+    @staticmethod # 因為 route.password_reset內 user = User.verify_jwt(token) 非使用實例, 直接使用類別方法
+    def verify_jwt(token): # 不用 self
+        try:
+            email = jwt.decode(
+                token,
+                current_app.config['SECRET_KEY'],
+                algorithms=['HS256']
+            )
+            email = email['email']
+        except:
+            return
+        return User.query.filter_by(email=email).first()
 
 # loginManager中的 user_loader方法作為裝飾器可以讓 login_user方法根據id找到用戶來記錄登入用戶資訊與狀態
 @login_manager.user_loader

@@ -4,9 +4,7 @@
     <!--post.author == user-->
     <td><img src="{{ post.author.avatar(48) }}" alt="" /></td>
     <td>
-      <a href="{{ url_for('profile', username=post.author.username) }}"
-        ><b> {{ post.author.username }}</b></a
-      >
+      <a href="{{ url_for('profile', username=post.author.username) }}"><b> {{ post.author.username }}</b></a>
       {{ post.create_time }}<br />
       {{ post.body }}
     </td>
