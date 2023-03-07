@@ -8,6 +8,8 @@ from flask import current_app
 import jwt
 
 from twittor import db, login_manager
+from twittor.models.tweet import Tweet
+
 #記錄follow關係,沒定義class是因為是表示外來物件的關係
 followers = db.Table('followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
@@ -93,15 +95,3 @@ class User(UserMixin, db.Model): #大寫User是class, 默認小寫user是實例(
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
-
-#記錄發文推文
-class Tweet(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(140))
-    create_time = db.Column(db.DateTime, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) #user_id domain限制於 user表內的 id
-
-    def __repr__(self) -> str:
-        return "id={}, body={}, create_time={}, user_id={}".format(
-            self.id, self.body, self.create_time, self.user_id
-        )

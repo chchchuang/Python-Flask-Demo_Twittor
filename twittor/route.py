@@ -1,7 +1,8 @@
 from flask import render_template, redirect, url_for, request, abort, current_app, flash
 from flask_login import login_user, current_user, logout_user, login_required
 from twittor.forms import LoginForm, RegisterForm, EditProfileForm, TweetForm, PasswordResetRequestForm, PasswdRestForm
-from twittor.models import User, Tweet #要讓 flask知道 model存在
+from twittor.models.user import User #要讓 flask知道 model存在
+from twittor.models.tweet import Tweet
 from twittor.email import send_email
 from twittor import db
 
