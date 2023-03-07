@@ -71,11 +71,46 @@ def user(username): #參數來自網址
         if request.form['request_button'] == 'Follow':
             current_user.follow(u)
             db.session.commit()
-        else:
+        elif request.form['request_button'] == 'Unfollow':
             current_user.unfollow(u)
             db.session.commit()
+        else: # activate
+            flash("Send an email to your email address, please check!")
+            send_email_for_user_activate(current_user)
     return render_template("user.html", title="Profile", user=u, tweets=tweets.items,
         prev_url=prev_url, next_url=next_url)
+
+def send_email_for_user_activate(user):
+    token = user.get_jwt()
+    url_user_activate = url_for(
+        'user_activate', token=token, _external=True
+    )
+    send_email(
+        subject=current_app.config['MAIL_SUBJECT_USER_ACTIVATE'],
+        recipients = [user.email],
+        text_body = render_template(
+            'email/us_activate_request.txt',
+            username=user.username,
+            url_user_activate=url_user_activate
+        ),
+        html_body = render_template(
+            'email/us_activate_request.html',
+            username=user.username,
+            url_user_activate=url_user_activate
+        )
+    )
+
+def user_activate(token):
+    if current_user.is_activated:
+        return redirect(url_for('index'))
+    user = User.verify_jwt(token)
+    if not user:
+        msg = "Token has expired, please try to re-send email."
+    else:
+        user.is_activated = True
+        db.session.commit()
+        msg = "User has been activated!"
+    return render_template('activated.html', msg=msg)
 
 def page_not_found(e):
     return render_template("404.html"), 404
@@ -141,3 +176,16 @@ def password_reset(token):
         db.session.commit()
         return redirect(url_for('login'))
     return render_template('password_reset.html', title='Password Reset', form=form)
+
+@login_required
+def explore():
+    # get all tweets
+    page_num = int(request.args.get('page') or 1)
+    tweets = Tweet.query.order_by(Tweet.create_time.desc()).paginate(
+        page=page_num, per_page=current_app.config["TWEET_PER_PAGE"], error_out=False
+    )
+    prev_url = url_for("index", page=tweets.prev_url) if tweets.has_prev else None
+    next_url = url_for("index", page=tweets.next_url) if tweets.has_next else None
+    return render_template(
+        "explore.html", tweets=tweets, prev_url=prev_url, next_url=next_url
+    )

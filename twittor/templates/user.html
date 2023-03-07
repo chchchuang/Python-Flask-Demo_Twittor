@@ -4,27 +4,38 @@
   <tr>
     <td><img src="{{ user.avatar(200) }}" alt="" /></td>
     <td>
-      <p>
+      <form action="" method="post">
         <b>{{ user.username }}</b>
-      </p>
+        {% if user == current_user %}
+        {% if current_user.is_activated != 1 %}
+        <input id="btn" class="btn btn-warning" type="submit" name="request_button" value="activate">
+        {% else %}
+        <span class="badge badge-success">activated</span>
+        {% endif %}
+        {% endif %}
+      </form>
       <p>
-        <label>followers: {{ user.followers.count() }}</label>
-        <label>following: {{ user.followed.count() }}</label>
+        <label>Follower {{ user.followers.count() }}</label>
+        <label>Following {{ user.followed.count() }}</label>
       </p>
 
-      <form action="" method="POST">
-        {% if user != current_user %} {% if current_user.is_following(user) %}
+      <form action="" method="post">
+        {% if user != current_user %}
+        {% if current_user.is_following(user) %}
         <input type="submit" name="request_button" value="Unfollow" />
         {% else %}
         <input type="submit" name="request_button" value="Follow" />
-        {% endif %} {% endif %}
+        {% endif %}
+        {% endif %}
       </form>
 
       {% if user.about_me %}
       <p>About me:{{ user.about_me }}</p>
-      {% endif %} {% if user.create_time %}
+      {% endif %}
+      {% if user.create_time %}
       <p>Joined:{{ user.create_time }}</p>
-      {% endif %} {% if user == current_user %}
+      {% endif %}
+      {% if user == current_user %}
       <p><a href="{{ url_for('edit_profile') }}">Edit Your Profile</a></p>
       {% endif %}
     </td>

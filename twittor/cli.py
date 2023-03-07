@@ -1,6 +1,7 @@
 # 啟動 venv: 1.cd到 venv folder  2.source bin/activate
 # flask-migrate: manager方法失效,改用 cli方式進行 migrate
 '''
+(venv) chchchuang@StevendeMacBook-Pro TWITTOR % 
 >>> flask db init # 初始化目錄 migrations folder
 >>> flask db migrate -m "create user, tweet" #表
 >>> flask db migrate -m "add phone" #項目
@@ -19,7 +20,7 @@
 >>> app.app_context().push() # 需進入 app的上下文內才能知道 db的配置
 >>> db
 <SQLAlchemy sqlite:////Users/chchchuang/Desktop/SideProject/lesson/udemy_Flask/TWITTOR/twittor/twittor.db>
->>> from twittor.models import User, Tweet
+>>> from twittor.models.user import User, Tweet
 
 ## 增
 >>> u = User(username='admin', email='admin@admin.com')

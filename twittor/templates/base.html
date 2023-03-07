@@ -15,7 +15,7 @@
 <body>
   <div>
     <!-- Twittor: <a href="/">Home</a> -->
-    Twittor: <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('index') }}">Twittor</a>: <a href="{{ url_for('explore') }}">Explore</a>
     <!-- <a href="/login">Login</a> -->
     {% if current_user.is_anonymous %}
     <!--匿名表示沒登入-->

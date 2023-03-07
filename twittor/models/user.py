@@ -23,6 +23,7 @@ class User(UserMixin, db.Model): #大寫User是class, 默認小寫user是實例(
     password_hash = db.Column(db.String(128))
     about_me = db.Column(db.String(120)) #增加數據庫記得做 migration
     create_time = db.Column(db.DateTime, default=datetime.utcnow)
+    is_activated = db.Column(db.Boolean, default=False)
 
     tweets = db.relationship('Tweet', backref='author', lazy='dynamic') #一對多(一用戶對多 tweets), 非 user表內的 data, 使用 Tweet class, 非 tweet表
     # backref: 可以視為暗號, 使用 Tweet.author就可以視為 User, 讀取 User表格的內容
