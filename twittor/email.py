@@ -2,6 +2,7 @@ from threading import Thread
 
 from flask import current_app
 from flask_mail import Message
+
 from twittor import mail
 
 def send_async_email(app, msg):
@@ -12,7 +13,7 @@ def send_email(subject, recipients, text_body, html_body):
     msg = Message(
         subject = subject,
         recipients = recipients, # 接收者
-        reply_to = 'noreply@twittor.com' # 回覆地址
+        reply_to = "noreply@twittor.com" # 回覆地址
     )
     # 看用戶端使用文本或 html格式閱讀 msg
     msg.body = text_body
