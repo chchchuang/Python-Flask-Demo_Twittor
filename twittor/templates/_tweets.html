@@ -1,20 +1,48 @@
-<table>
-  {% for post in tweets %}
-  <tr valign="top">
-    <!--post.author == user-->
-    <td><img src="{{ post.author.avatar(48) }}" alt="" /></td>
-    <td>
-      <a href="{{ url_for('profile', username = post.author.username) }}"><b>{{ post.author.username }}</b></a>
-      {{ (post.create_time + timedelta).strftime("%Y-%m-%d %H:%M:%S") }}<br />
-      {{ post.body }}
-    </td>
-  </tr>
-  {% endfor %}
-</table>
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+  <h5 class="border-bottom pb-2 mb-0">Recent updates</h5>
 
-{% if prev_url %}
-<a href="{{ prev_url }}">Prev Page</a>
-{% endif %}
-{% if next_url %}
-<a href="{{ next_url }}">Next Page</a>
-{% endif %}
+  {% for tweet in tweets %}
+  <div class="d-flex text-muted pt-3">
+    <img src="{{ tweet.author.avatar(48) }}" alt="" class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="48"
+      height="48">
+    <table>
+      <tr valign="top" class="pb-3 mb-0 small lh-sm border-bottom">
+        <td>
+          <strong class="d-block text-gray-dark"><a href="{{ url_for('profile', username = tweet.author.username) }}"
+              class="d-block text-gray-dark">
+              {{ tweet.author.username }}</a></strong>
+          {{ (tweet.create_time + timedelta).strftime("%Y-%m-%d %H:%M:%S") }}
+        </td>
+      </tr>
+      <tr>
+        <td>{{ tweet.body }}</td>
+      </tr>
+    </table>
+  </div>
+  {% endfor %}
+
+  <nav aria-label="pagination">
+    <ul class="pagination">
+      {% if prev_url %}
+      <li class="page-item">
+        <a class="page-link" href="{{ prev_url }}">Previous</a>
+      </li>
+      {% else %}
+      <li class="page-item disable">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+      </li>
+      {% endif %}
+
+      {% if next_url %}
+      <li class="page-item">
+        <a class="page-link" href="{{ next_url }}">Next</a>
+      </li>
+      {% else %}
+      <li class="page-item disable">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+</div>

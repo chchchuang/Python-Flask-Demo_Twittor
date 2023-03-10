@@ -1,33 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Login</h1>
-<form action="" method="post">
-  {{ form.csrf_token }}
-  <p>
-    <!-- <label for="">Username:</label>
-    <input type="text" name="" id="" /> -->
-    {{ form.username.label }} {{ form.username() }}
-    <!--將 input傳入 username()這個方法-->
-  </p>
-  <p>
-    <!-- <label for="">Password:</label>
-    <input type="text" name="" id="" /> -->
-    {{ form.password.label }} {{ form.password() }}
-  </p>
-  <p>
-    <!-- <input type="checkbox" name="" id="" />
-    <label for="">Remember Me</label> -->
-    {{ form.remember_me() }} {{ form.remember_me.label }}
-  </p>
-  <p>
-    <!-- <input type="submit" value="Login" /> -->
-    {{ form.submit() }}
-  </p>
-  <p>
-    <a href="{{ url_for('register') }}">New User?</a> or
-    <a href="{{ url_for('reset_password_request')}}">Forget Password?</a>
-  </p>
-</form>
+<div class='row'>
+  <div class="text-center col-lg-4"></div>
+  <div class="text-center col-lg-4">
+    <main class="text-center form-signin w-100 m-auto">
+      <form action="" method="post">
+        {{ form.hidden_tag() }}
+
+        <img class="mb-1" src="/img/logo.jpeg" alt="LOGO" width="144" height="114">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+        <div class="form-floating">
+          {{ form.username(class="form-control", id="floatingInput", placeholder="Username") }}
+          <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating">
+          {{ form.password(class="form-control", id="floatingPassword", placeholder="Password") }}
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div class="checkbox mt-2 mb-2">
+          {{ form.remember_me() }} {{ form.remember_me.label }}
+        </div>
+        {{ form.submit(class="w-100 btn btn-lg btn-secondary") }}
+        <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
+        <div>
+          <a href="{{ url_for('register') }}">New User?</a> or
+          <a href="{{ url_for('reset_password_request')}}">Forget Password?</a>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
 
 {% endblock %}

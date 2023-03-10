@@ -14,7 +14,8 @@ from twittor.config import Config
 from twittor.route import index, login, logout, register, user, page_not_found, edit_profile, reset_password_request, password_reset, explore, user_activate
 
 def create_app():
-    app = Flask(__name__, template_folder = "templates")
+    app = Flask(__name__, template_folder = "templates",
+                static_folder = "static", static_url_path = "/img/")
     #app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///twittor.db"
     #app.config["SQLALCHEMY_DATABASE_URI"]="mysql+pymysql://root:root@localhost:3306/twittor"
     app.config.from_object(Config)
