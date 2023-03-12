@@ -10,6 +10,8 @@ WORKDIR /twittor
 
 RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt && pip install gunicorn && chmod 755 run_server.sh
 
+RUN flask db upgrade
+
 EXPOSE 8000
 
 ENTRYPOINT ["./run_server.sh"]
