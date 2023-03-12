@@ -1,4 +1,4 @@
-FROM python:3.6-alpine
+FROM python:3.8.2-alpine
 
 LABEL maintainer="chchchuang <chchchuang@gmail.com>"
 
@@ -8,7 +8,7 @@ COPY . /twittor
 
 WORKDIR /twittor
 
-RUN pip install -r requirements.txt && pip install gunicorn && chmod 755 run_server.sh
+RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt && pip install gunicorn && chmod 755 run_server.sh
 
 EXPOSE 8000
 
