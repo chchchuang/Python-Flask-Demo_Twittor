@@ -25,6 +25,10 @@ def create_app():
     login_manager.init_app(app)
     mail.init_app(app)
 
+    @app.before_first_request
+    def create_tables():
+        db.create_all()
+        print("create table DONE!")
     #原裝飾器的功能 @app.route("/")
     # map(url, endpoint) & map(endpoint, view_func)
     # url_for(endpoint) 由 endpoint找到相關聯的 url, view_func 2023/3/2
