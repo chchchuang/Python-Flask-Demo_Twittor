@@ -12,6 +12,8 @@
               class="d-block text-gray-dark">
               {{ tweet.author.username }}</a></strong>
           {{ (tweet.create_time + timedelta).strftime("%Y-%m-%d %H:%M:%S") }}
+          <h1>create_time = {{ tweet.create_time }}</h1>
+          <h1>timedelta = {{ timedelta }}</h1>
         </td>
       </tr>
       <tr>
