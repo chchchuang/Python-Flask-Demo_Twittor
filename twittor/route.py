@@ -8,8 +8,11 @@ from twittor.email import send_email
 from twittor import db
 
 from datetime import datetime, timezone
-now = datetime.now()
-tz_offset = now.replace(tzinfo = timezone.utc) - now.astimezone(timezone.utc) # replace tzinfo won't impact time
+
+def getTz_offset(): 
+    now = datetime.now()
+    tz_offset = now.replace(tzinfo = timezone.utc) - now.astimezone(timezone.utc) # replace tzinfo won't impact time
+    return tz_offset
 
 @login_required # 必須 login才能查看頁面
 def index():
@@ -23,6 +26,7 @@ def index():
     tweets = current_user.own_and_followed_tweets().paginate(page = page_num, per_page = current_app.config["TWEET_PER_PAGE"], error_out = False) # error_out==True: 為空時會報錯
     prev_url = url_for("index", page = tweets.prev_num) if tweets.has_prev else None
     next_url = url_for("index", page = tweets.next_num) if tweets.has_next else None
+    tz_offset = getTz_offset()
     return render_template("index.html", title = current_user.username, form = form, tweets = tweets.items,
         timedelta = tz_offset, prev_url = prev_url, next_url = next_url)
 
@@ -70,6 +74,7 @@ def user(username): #參數來自網址
     tweets = user.tweets.order_by(Tweet.create_time.desc()).paginate(page = page_num, per_page = current_app.config["TWEET_PER_PAGE"], error_out = False)
     prev_url = url_for("profile", username = username, page = tweets.prev_num) if tweets.has_prev else None
     next_url = url_for("profile", username = username, page = tweets.next_num) if tweets.has_next else None
+    tz_offset = getTz_offset()
     # 處理 follow/ unfollow
     if request.method == "POST": # GET, POST必須大寫
         # print(request.form.to_dict()) #key: submit.name, value: submit.value
@@ -185,5 +190,6 @@ def explore():
     )
     prev_url = url_for("explore", page = tweets.prev_num) if tweets.has_prev else None
     next_url = url_for("explore", page = tweets.next_num) if tweets.has_next else None
+    tz_offset = getTz_offset()
     return render_template("explore.html", title = "explore", tweets = tweets,
         timedelta = tz_offset, prev_url = prev_url, next_url = next_url)

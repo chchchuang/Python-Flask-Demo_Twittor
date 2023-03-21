@@ -1,4 +1,6 @@
-# 啟動 venv: 1.cd到 venv folder  2.source bin/activate
+# 設置 venv: 1.$pip3 install virtualenv  2.$python3 -m virtualenv venv
+# 啟動 venv: 1.cd到 venv folder  2.$source bin/activate
+# 跳脫 venv: $deactivate
 # flask-migrate: manager方法失效,改用 cli方式進行 migrate
 '''
 (venv) chchchuang@StevendeMacBook-Pro TWITTOR % 
