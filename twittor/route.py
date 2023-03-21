@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, abort, current_app, flash
 from flask_login import login_user, current_user, logout_user, login_required
 
-from twittor.forms import LoginForm, RegisterForm, EditProfileForm, TweetForm, PasswordResetRequestForm, PasswdRestForm
+from twittor.forms import LoginForm, RegisterForm, EditProfileForm, TweetForm, PasswordResetRequestForm, PasswdRestForm, EditTweetForm
 from twittor.models.user import User #要讓 flask知道 model存在
 from twittor.models.tweet import Tweet
 from twittor.email import send_email
@@ -124,8 +124,22 @@ def edit_profile():
     if form.validate_on_submit():
         current_user.about_me = form.about_me.data
         db.session.commit()
-        return redirect(url_for("profile", username = current_user.username)) #url_for('endpoint') -> def user(username)
+        return redirect(url_for("profile", username = current_user.username))
     return render_template("edit_profile.html", title = "Edit Profile", form = form)
+
+@login_required
+def edit_tweet(create_time):
+    t = Tweet.query.filter_by(create_time = create_time, author = current_user).first()
+    if not t:
+        abort(404)
+    form = EditTweetForm()
+    if request.method == "GET":
+        form.tweet.data = t.body
+    if form.validate_on_submit():
+        t.body = form.tweet.data
+        db.session.commit()
+        return redirect(url_for("profile", username = current_user.username))
+    return render_template("edit_tweet.html", title = "Edit Tweet", form = form)
 
 def reset_password_request():
     if current_user.is_authenticated:
@@ -185,3 +199,4 @@ def explore():
     next_url = url_for("explore", page = tweets.next_num) if tweets.has_next else None
     return render_template("explore.html", title = "explore", tweets = tweets,
         prev_url = prev_url, next_url = next_url)
+

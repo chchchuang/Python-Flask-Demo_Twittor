@@ -13,7 +13,7 @@ mail = Mail()
 moment = Moment()
 
 from twittor.config import Config
-from twittor.route import index, login, logout, register, user, page_not_found, edit_profile, reset_password_request, password_reset, explore, user_activate
+from twittor.route import index, login, logout, register, user, page_not_found, edit_profile, reset_password_request, password_reset, explore, user_activate, edit_tweet
 
 def create_app():
     app = Flask(__name__, template_folder = "templates",
@@ -46,6 +46,7 @@ def create_app():
     app.add_url_rule("/password_reset/<token>", "password_reset", password_reset, methods = ["GET","POST"])
     app.add_url_rule("/explore", "explore", explore)
     app.add_url_rule("/activate/<token>", "user_activate", user_activate)
+    app.add_url_rule("/edit_tweet/<create_time>", "edit_tweet", edit_tweet, methods = ["GET", "POST"])
     app.register_error_handler(404, page_not_found) #abort 404錯誤代碼後執行 page_not_found func
     return app
  

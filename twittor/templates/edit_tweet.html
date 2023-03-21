@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class='row'>
+    <div class="text-center col-lg-4"></div>
+    <div class="text-center col-lg-4">
+        <main class="text-center form-signin w-100 m-auto">
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+
+                <img class="mb-1" src="/img/logo.jpeg" alt="LOGO" width="144" height="114">
+                <h1 class="h3 mb-3 fw-normal">Edit Tweet</h1>
+
+                <div>
+                    {{ form.tweet.label }}<br />
+                    {{ form.tweet(class="form-control", cols=50, rows=4) }}<br />
+                    {% for error in form.tweet.label.errors %}
+                    <span style="color: red">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                {{ form.submit(class="w-100 btn btn-lg btn-secondary") }} <br>
+            </form>
+        </main>
+    </div>
+</div>
+
+{% endblock %}

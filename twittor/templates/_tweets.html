@@ -15,6 +15,11 @@
           ({{ moment(tweet.create_time).fromNow() }})
           <!-- {{ (tweet.create_time).strftime("%Y-%m-%d %H:%M:%S") }} -->
         </td>
+        <td>
+          {% if tweet.author == current_user %}
+          <p><a href="{{ url_for('edit_tweet', create_time = tweet.create_time) }}">Edit</a></p>
+          {% endif %}
+        </td>
       </tr>
       <tr>
         <td>{{ tweet.body }}</td>

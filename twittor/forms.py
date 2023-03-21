@@ -36,6 +36,10 @@ class TweetForm(FlaskForm):
     tweet = TextAreaField("Tweet", validators = [DataRequired(), Length(min = 0, max = 140)])
     submit = SubmitField("Tweet")
 
+class EditTweetForm(FlaskForm):
+    tweet = TextAreaField("Tweet", validators = [DataRequired(), Length(min = 0, max = 140)])
+    submit = SubmitField("Save")
+
 class PasswordResetRequestForm(FlaskForm):
     email = StringField("Email Address", validators = [DataRequired(), Email()])
     submit = SubmitField("Reset Password")
