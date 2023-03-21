@@ -51,7 +51,10 @@
           {% endif %}
           {% if user.create_time %}
           <b>Joined:</b>
-          <p>{{ (user.create_time + timedelta).strftime("%Y-%m-%d %H:%M:%S") }}</p>
+          <p>
+            {{ moment(user.create_time).format("YYYY-MM-DD, HH:mm:ss") }}
+            ({{ moment(user.create_time).fromNow() }})
+          </p>
           {% endif %}
         </div>
         {% if user == current_user %}

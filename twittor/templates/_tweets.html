@@ -11,9 +11,9 @@
           <strong class="d-block text-gray-dark"><a href="{{ url_for('profile', username = tweet.author.username) }}"
               class="d-block text-gray-dark">
               {{ tweet.author.username }}</a></strong>
-          {{ (tweet.create_time + timedelta).strftime("%Y-%m-%d %H:%M:%S") }}
-          <h1>create_time = {{ tweet.create_time }}</h1>
-          <h1>timedelta = {{ timedelta }}</h1>
+          {{ moment(tweet.create_time).format("YYYY-MM-DD, HH:mm:ss") }}
+          ({{ moment(tweet.create_time).fromNow() }})
+          <!-- {{ (tweet.create_time).strftime("%Y-%m-%d %H:%M:%S") }} -->
         </td>
       </tr>
       <tr>
