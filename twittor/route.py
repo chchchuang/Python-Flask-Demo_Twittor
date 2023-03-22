@@ -33,6 +33,10 @@ def login():
         if not user or not user.check_password(form.password.data):
             flash("invalid username or password")
             return redirect(url_for("login"))
+        if not user.is_activated:
+            flash("Send an email to your email address, please check!")
+            send_email_for_user_activate(user)
+            return redirect(url_for("login"))
         login_user(user, remember = form.remember_me.data) #記錄登入用戶資訊
         next_page = request.args.get("next") #搜尋別人網址時要求登入, 登入後直接跳轉該網址
         if next_page:
@@ -54,6 +58,8 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
+        flash("Send an email to confirm your email address, please check!")
+        send_email_for_user_activate(user)
         return redirect(url_for("login"))
     return render_template("register.html", title = "Registeration", form = form)
 
@@ -77,9 +83,9 @@ def user(username): #參數來自網址
         elif request.form["request_button"] == 'Unfollow':
             current_user.unfollow(user)
             db.session.commit()
-        else: # activate
-            flash("Send an email to your email address, please check!")
-            send_email_for_user_activate(current_user)
+        # else: # activate
+        #     flash("Send an email to your email address, please check!")
+        #     send_email_for_user_activate(current_user)
     return render_template("user.html", title = "Profile", user = user, tweets = tweets.items,
         prev_url = prev_url, next_url = next_url)
 
@@ -105,16 +111,18 @@ def send_email_for_user_activate(user):
     )
 
 def user_activate(token):
-    if current_user.is_activated:
-        return redirect(url_for("index"))
     user = User.verify_jwt(token)
     if not user:
         msg = "Token has expired, please try to re-send email."
+        return render_template("activated.html", title = "activated", msg = msg)
+    if user.is_activated:
+        flash("Your email is already confirmed!")
+        return redirect(url_for("index"))
     else:
         user.is_activated = True
         db.session.commit()
         msg = "User has been activated!"
-    return render_template("activated.html", title = "activated", msg = msg)
+        return render_template("activated.html", title = "activated", msg = msg)
 
 @login_required
 def edit_profile():
