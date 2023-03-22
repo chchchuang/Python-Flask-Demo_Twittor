@@ -138,6 +138,7 @@ def edit_tweet(id):
         form.tweet.data = t.body
     if form.validate_on_submit():
         t.body = form.tweet.data
+        t.is_edited = True
         db.session.commit()
         return redirect(url_for("profile", username = current_user.username))
     # delete/(un)like tweet

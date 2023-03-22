@@ -13,6 +13,9 @@
               {{ tweet.author.username }}</a></strong>
           {{ moment(tweet.create_time).format("YYYY-MM-DD, HH:mm:ss") }}
           ({{ moment(tweet.create_time).fromNow() }})
+          {% if tweet.is_edited %}
+          [edited]
+          {% endif %}
           <!-- {{ (tweet.create_time).strftime("%Y-%m-%d %H:%M:%S") }} -->
         </td>
         <td>
