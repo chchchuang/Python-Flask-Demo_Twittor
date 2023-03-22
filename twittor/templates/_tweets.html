@@ -16,9 +16,18 @@
           <!-- {{ (tweet.create_time).strftime("%Y-%m-%d %H:%M:%S") }} -->
         </td>
         <td>
-          {% if tweet.author == current_user %}
-          <p><a href="{{ url_for('edit_tweet', create_time = tweet.create_time) }}">Edit</a></p>
-          {% endif %}
+          <form action="{{ url_for('edit_tweet', id = tweet.id) }}" method="post">
+            {% if current_user.is_liking(tweet) %}
+            <input class="btn btn-outline-success" type="submit" name="request_button" value="Unlike">
+            {% else %}
+            <input class="btn btn-outline-success" type="submit" name="request_button" value="Like">
+            {% endif %}
+            {{ tweet.beliked.count() }}
+            {% if tweet.author == current_user %}
+            <a class="btn btn-outline-success" href="{{ url_for('edit_tweet', id = tweet.id) }}">Edit</a>
+            <input class="btn btn-outline-danger" type="submit" name="request_button" value="Delete">
+            {% endif %}
+          </form>
         </td>
       </tr>
       <tr>

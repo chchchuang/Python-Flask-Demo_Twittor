@@ -46,7 +46,7 @@ def create_app():
     app.add_url_rule("/password_reset/<token>", "password_reset", password_reset, methods = ["GET","POST"])
     app.add_url_rule("/explore", "explore", explore)
     app.add_url_rule("/activate/<token>", "user_activate", user_activate)
-    app.add_url_rule("/edit_tweet/<create_time>", "edit_tweet", edit_tweet, methods = ["GET", "POST"])
+    app.add_url_rule("/edit_tweet/<id>", "edit_tweet", edit_tweet, methods = ["GET", "POST"])
     app.register_error_handler(404, page_not_found) #abort 404錯誤代碼後執行 page_not_found func
     return app
  

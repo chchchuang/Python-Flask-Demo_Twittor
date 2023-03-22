@@ -128,17 +128,31 @@ def edit_profile():
     return render_template("edit_profile.html", title = "Edit Profile", form = form)
 
 @login_required
-def edit_tweet(create_time):
-    t = Tweet.query.filter_by(create_time = create_time, author = current_user).first()
+def edit_tweet(id):
+    t = Tweet.query.filter_by(id = id).first()
     if not t:
         abort(404)
     form = EditTweetForm()
+    # edit tweet
     if request.method == "GET":
         form.tweet.data = t.body
     if form.validate_on_submit():
         t.body = form.tweet.data
         db.session.commit()
         return redirect(url_for("profile", username = current_user.username))
+    # delete/(un)like tweet
+    if request.method == "POST": # GET, POST必須大寫
+        # print(request.form.to_dict()) #key: submit.name, value: submit.value
+        if request.form["request_button"] == "Delete":
+            db.session.delete(t)
+            db.session.commit()
+        elif request.form["request_button"] == "Like":
+            current_user.like(t)
+            db.session.commit()
+        elif request.form["request_button"] == "Unlike":
+            current_user.unlike(t)
+            db.session.commit()
+        return redirect(url_for("index"))
     return render_template("edit_tweet.html", title = "Edit Tweet", form = form)
 
 def reset_password_request():
