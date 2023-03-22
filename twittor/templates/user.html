@@ -32,7 +32,8 @@
             </tr>
           </table>
         </form>
-        <p>{{ user.followers.count() }} Followers &nbsp;&nbsp;&nbsp; {{ user.followed.count() }} Following</p>
+        <p>{{ user.tweets.count() }} Posts &nbsp;&nbsp;&nbsp; {{ user.followers.count() }} Followers &nbsp;&nbsp;&nbsp;
+          {{ user.followed.count() }} Following</p>
         <form action="" method="post">
           {% if user != current_user %}
           {% if current_user.is_following(user) %}
