@@ -19,3 +19,9 @@ class Config():
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", "password")
     MAIL_SUBJECT_RESET_PASSWORD = "[Twittor] Please Reset Your Password"
     MAIL_SUBJECT_USER_ACTIVATE = "[Twittor] Please Activate Your Account"
+
+    SOCIAL_FACEBOOK = {
+        "consumer_key": 'facebook app id',
+        "consumer_secret": 'facebook app secret'
+    }
+    SECURITY_POST_LOGIN = "/profile"
