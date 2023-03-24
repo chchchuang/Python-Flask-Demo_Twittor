@@ -14,11 +14,12 @@ services:
  
   nginx:
     image: nginx:1.15-alpine
-    build: ./nginx/
     ports:
       - "80:80"
       - "443:443"
     volumes:
+      - /etc/letsencrypt/archive/twittor.link/:/etc/letsencrypt/live/twittor.link/
+      - /etc/letsencrypt/:/etc/letsencrypt/
       - ./data/nginx:/etc/nginx/conf.d
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
