@@ -21,7 +21,7 @@ class Config():
     MAIL_SUBJECT_USER_ACTIVATE = "[Twittor] Please Activate Your Account"
 
     SOCIAL_FACEBOOK = {
-        "consumer_key": 'facebook app id',
-        "consumer_secret": 'facebook app secret'
+        "consumer_key": "facebook app id",
+        "consumer_secret": "facebook app secret"
     }
     SECURITY_POST_LOGIN = "/profile"
