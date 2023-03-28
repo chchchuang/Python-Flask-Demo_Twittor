@@ -29,6 +29,9 @@ class User(UserMixin, db.Model): #大寫User是class, 默認小寫user是實例(
     create_time = db.Column(db.DateTime, default = datetime.utcnow)
     is_activated = db.Column(db.Boolean, default = False)
 
+    FBuserID = db.Column(db.Integer, unique = True, index = True, nullable = True)
+    FBaccessToken = db.Column(db.String(128), nullable = True)
+
     tweets = db.relationship("Tweet", backref = "author", lazy = "dynamic") #一對多的一(一用戶對多 tweets)配合Tweet.user_id,使用 Tweet class,非tweet表
     # backref: 可以視為暗號, 使用 Tweet.author就可以視為 User, 讀取 User表格的內容
 

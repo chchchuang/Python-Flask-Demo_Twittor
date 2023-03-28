@@ -8,6 +8,8 @@ from twittor.email import send_email
 from twittor import db
 
 from datetime import datetime, timezone
+from functools import wraps
+import json
 
 @login_required # 必須 login才能查看頁面
 def index():
@@ -44,6 +46,28 @@ def login():
         return redirect(url_for("index"))
     return render_template("login.html", title = "Sign In", form = form)
 
+def to_json(func):
+    @wraps(func) # avoid func.__name__屬性被修改成 wrap
+    def wrap(*args, **kwargs):
+        get_fun = func(*args, **kwargs)
+        return json.dumps(get_fun)
+    
+    return wrap
+
+@to_json
+def API_FB_login():
+    userID = request.json["userID"]
+    accessToken = request.json["accessToken"]
+    FBuser = User.query.filter_by(FBuserID = userID).first()
+    if not FBuser:
+        u = User(FBuserID = userID, FBaccessToken = accessToken)
+        db.session.add(u)
+        db.commit()
+        login_user(u, remember = True)
+    else:
+        login_user(FBuser, remember = True)
+    return "FB_login_success"
+    
 def logout():
     logout_user()
     flash("You have successfully logged out.")
@@ -223,3 +247,5 @@ def explore():
     return render_template("explore.html", title = "explore", tweets = tweets,
         prev_url = prev_url, next_url = next_url)
 
+
+        

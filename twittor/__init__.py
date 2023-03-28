@@ -13,11 +13,11 @@ mail = Mail()
 moment = Moment()
 
 from twittor.config import Config
-from twittor.route import index, login, logout, register, user, page_not_found, edit_profile, reset_password_request, password_reset, explore, user_activate, edit_tweet
+from twittor.route import index, login, logout, register, user, page_not_found, edit_profile, reset_password_request, password_reset, explore, user_activate, edit_tweet, API_FB_login
 
 def create_app():
     app = Flask(__name__, template_folder = "templates",
-                static_folder = "static", static_url_path = "/img/")
+                static_folder = "static", static_url_path = "/static/")
     #app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///twittor.db"
     #app.config["SQLALCHEMY_DATABASE_URI"]="mysql+pymysql://root:root@localhost:3306/twittor"
     app.config.from_object(Config)
@@ -48,5 +48,7 @@ def create_app():
     app.add_url_rule("/activate/<token>", "user_activate", user_activate)
     app.add_url_rule("/edit_tweet/<id>", "edit_tweet", edit_tweet, methods = ["GET", "POST"])
     app.register_error_handler(404, page_not_found) #abort 404錯誤代碼後執行 page_not_found func
+
+    app.add_url_rule("/API_FB_login", "API_FB_login", API_FB_login, methods = ["POST"])
     return app
  

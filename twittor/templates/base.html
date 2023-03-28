@@ -20,59 +20,15 @@
   <title>Twittor</title>
   {% endif %}
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
-  <script>
-
-    function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-      console.log('statusChangeCallback');
-      console.log(response);                   // The current login status of the person.
-      if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-        testAPI();
-      } else {                                 // Not logged into your webpage or we are unable to tell.
-        document.getElementById('status').innerHTML = 'Please log ' +
-          'into this webpage.';
-      }
-    }
-
-
-    function checkLoginState() {               // Called when a person is finished with the Login Button.
-      FB.getLoginStatus(function (response) {   // See the onlogin handler
-        statusChangeCallback(response);
-      });
-    }
-
-
-    window.fbAsyncInit = function () {
-      FB.init({
-        appId: "{app-id}",
-        cookie: true,                     // Enable cookies to allow the server to access the session.
-        xfbml: true,                     // Parse social plugins on this webpage.
-        version: "v16.0", // '{api-version}'           // Use this Graph API version for this call.
-      });
-
-
-      FB.getLoginStatus(function (response) {   // Called after the JS SDK has been initialized.
-        statusChangeCallback(response);        // Returns the login status.
-      });
-    };
-
-    function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-      console.log('Welcome!  Fetching your information.... ');
-      FB.api('/me', function (response) {
-        console.log('Successful login for: ' + response.name);
-        document.getElementById('status').innerHTML =
-          'Thanks for logging in, ' + response.name + '!';
-      });
-    }
-
-  </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
     <div class="container-fluid">
       <a href="{{ url_for('index') }}">
-        <img src="/img/logo.jpeg" width="38" height="30" class="me-1" alt="LOGO">
+        <img src="/static/logo.jpeg" width="38" height="30" class="me-1" alt="LOGO">
       </a>
       <a class="navbar-brand" href="{{ url_for('index') }}"><b>Twittor</b></a>
 
@@ -93,8 +49,11 @@
         {% if current_user.is_anonymous %}
         <!--匿名表示沒登入-->
         <a class="btn btn-outline-light" href="{{ url_for('login') }}" role="button">Login</a>
-        {% else %}
+        {% elif current_user.is_authenticated %}
         <a class="btn btn-outline-light" href="{{ url_for('logout') }}" role="button">Logout</a>
+        {% else %}
+        <div class="fb-login-button" onclick="logout();" data-width="200" data-height="100" data-size="small"
+          data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false"></div>
         {% endif %}
       </ul>
     </div>
@@ -119,6 +78,12 @@
     {% block content %} {% endblock %}
   </div>
 
+  <script src="static/javascripts/fb_sdk.js"></script>
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v16.0&appId=544423384484631&autoLogAppEvents=1"
+    nonce="NfCaqGg4"></script>
+  <script src="static/javascripts/fb_logout.js"></script>
 </body>
 
 </html>
