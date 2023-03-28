@@ -9,12 +9,12 @@ function FBlogin() {
             $.ajax({
                 url: '/API_FB_login',
                 type: 'POST',
-                dataType: 'json',
                 data: data_json,
+                dataType: 'json',
                 async: false,
                 contentType: 'application/json',
                 success: function (data, textStatus, jqXHR) {
-                    if (data == 'FB_login_success') {
+                    if (data === 'FB_login_success') {
                         location.replace('/');
                     }
                 },
