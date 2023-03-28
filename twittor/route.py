@@ -9,7 +9,7 @@ from twittor import db
 
 from datetime import datetime, timezone
 from functools import wraps
-import json
+import json, requests
 
 @login_required # 必須 login才能查看頁面
 def index():
@@ -61,8 +61,13 @@ def API_FB_login():
     FBuser = User.query.filter_by(FBuserID = userID).first()
     if not FBuser:
         u = User(FBuserID = userID, FBaccessToken = accessToken)
+        data = requests.get(
+            "https://graph.facebook.com/me?fields=id,name,email&access_token=" + accessToken
+        )
+        if data.status.code == 200:
+            u.username = data.json()["name"]
         db.session.add(u)
-        db.commit()
+        db.session.commit()
         login_user(u, remember = True)
     else:
         login_user(FBuser, remember = True)

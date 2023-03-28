@@ -1,6 +1,16 @@
 # 設置 venv: 1.$pip3 install virtualenv  2.$python3 -m virtualenv venv
 # 啟動 venv: 1.cd到 venv folder  2.$source bin/activate
 # 跳脫 venv: $deactivate
+# docker執行 MySQL init
+'''
+$ docker run -p 3306:3306 --name some-mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
+$ docker exec -it some-mysql sh # 進到 docker內
+sh-4.2# mysql -u root -p
+Enter password: 輸入密碼 root
+mysql> CREATE DATABASE twittor CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; #創 database
+mysql> DROP DATABASE twittor; # 刪 database
+mysql> SHOW DATABASES;
+'''
 # flask-migrate: manager方法失效,改用 cli方式進行 migrate
 '''
 (venv) chchchuang@StevendeMacBook-Pro TWITTOR % 
