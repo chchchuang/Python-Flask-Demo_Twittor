@@ -52,7 +52,7 @@
         {% elif not current_user.FBuserID %}
         <a class="btn btn-outline-light" href="{{ url_for('logout') }}" role="button">Logout</a>
         {% else %}
-        <button type="button" onclick="logout();" class="btn fb-logout-button">Facebook Logout</button>
+        <button type="button" onclick="logout();" class="btn text-primary btn-outline-primary">Facebook Logout</button>
         {% endif %}
       </ul>
     </div>
