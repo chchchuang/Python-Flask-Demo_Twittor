@@ -60,12 +60,13 @@ def API_FB_login():
     accessToken = request.json["accessToken"]
     FBuser = User.query.filter_by(FBuserID = userID).first()
     if not FBuser:
-        u = User(username = None, password = None, FBuserID = userID, FBaccessToken = accessToken)
+        u = User(FBuserID = userID, FBaccessToken = accessToken)
         data = requests.get(
             "https://graph.facebook.com/me?fields=id,name,email&access_token=" + accessToken
         )
-        if data.status.code == 200:
+        if data.status_code == 200:
             u.username = data.json()["name"]
+            u.email = data.json()["email"]
         db.session.add(u)
         db.session.commit()
         login_user(u, remember = True)

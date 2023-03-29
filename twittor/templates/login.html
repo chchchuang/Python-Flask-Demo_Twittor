@@ -28,7 +28,8 @@
         <!-- <div class="fb-login-button" onlogin="checkLoginState();" data-width="600" data-height="300" data-size="large"
           data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false"></div> -->
         <div class="row-margin-top">
-          <button type="button" onclick="checkFBlogin();" class="btn btn-default">Facebook LOGIN</button>
+          <button type="button" onclick="checkFBlogin();" class="btn fb-login-button" data-size="large">Facebook
+            Login</button>
         </div>
         <div id="status"></div>
         <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
@@ -44,7 +45,7 @@
 <script src="static/javascripts/fb_sdk.js"></script>
 <script src="static/javascripts/fb_login.js"></script>
 <!-- Load the JS SDK asynchronously -->
-<!-- <script async defer crossorigin="anonymous"
+<script async defer crossorigin="anonymous"
   src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v16.0&appId=544423384484631&autoLogAppEvents=1"
-  nonce="NfCaqGg4"></script> -->
+  nonce="NfCaqGg4"></script>
 {% endblock %}

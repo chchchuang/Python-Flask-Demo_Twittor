@@ -21,6 +21,7 @@
   {% endif %}
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <!-- <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
 </head>
 
 <body>
@@ -51,7 +52,7 @@
         {% elif not current_user.FBuserID %}
         <a class="btn btn-outline-light" href="{{ url_for('logout') }}" role="button">Logout</a>
         {% else %}
-        <button type="button" onclick="logout();" class="btn btn-default">FB Logout</button>
+        <button type="button" onclick="logout();" class="btn fb-logout-button">Facebook Logout</button>
         {% endif %}
       </ul>
     </div>
