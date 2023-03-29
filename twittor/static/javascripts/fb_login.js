@@ -36,24 +36,19 @@ function fetchUserDetail() {
     });
 }
 
-function checkLoginState() {
+function checkFBlogin() {
     // Called when a person is finished with the Login Button.
     FB.getLoginStatus(function (response) {
         // See the onlogin handler
-        statusChangeCallback(response);
+        console.log('statusChangeCallback' + response); // The current login status of the person.
+        if (response.status === 'connected') {
+            // Logged into your webpage and Facebook.
+            fetchUserDetail();
+        } else {
+            // Not logged into your webpage or we are unable to tell.
+            FBlogin();
+            console.log('please log into this Facebook.');
+            // document.getElementById('status').innerHTML = 'Please log ' + 'into this webpage.';
+        }
     });
-}
-
-function statusChangeCallback(response) {
-    // Called with the results from FB.getLoginStatus().
-    console.log('statusChangeCallback' + response); // The current login status of the person.
-    if (response.status === 'connected') {
-        // Logged into your webpage and Facebook.
-        fetchUserDetail();
-    } else {
-        // Not logged into your webpage or we are unable to tell.
-        FBlogin();
-        console.log('please log into this Facebook.');
-        // document.getElementById('status').innerHTML = 'Please log ' + 'into this webpage.';
-    }
 }

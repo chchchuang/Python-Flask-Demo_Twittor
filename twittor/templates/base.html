@@ -20,8 +20,7 @@
   <title>Twittor</title>
   {% endif %}
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 
 <body>
@@ -52,8 +51,7 @@
         {% elif not current_user.FBuserID %}
         <a class="btn btn-outline-light" href="{{ url_for('logout') }}" role="button">Logout</a>
         {% else %}
-        <div class="fb-login-button" onclick="logout();" data-width="200" data-height="100" data-size="small"
-          data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false"></div>
+        <button type="button" onclick="logout();" class="btn btn-default">FB Logout</button>
         {% endif %}
       </ul>
     </div>
@@ -79,10 +77,6 @@
   </div>
 
   <script src="static/javascripts/fb_sdk.js"></script>
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v16.0&appId=544423384484631&autoLogAppEvents=1"
-    nonce="NfCaqGg4"></script>
   <script src="static/javascripts/fb_logout.js"></script>
 </body>
 

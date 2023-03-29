@@ -25,9 +25,11 @@
         {{ form.submit(class="w-100 btn btn-lg btn-secondary") }}
         <hr>
         <!-- The JS SDK Login Button -->
-        <div class="fb-login-button" onlogin="checkLoginState();" data-width="600" data-height="300" data-size="large"
-          data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false"></div>
-        <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>-->
+        <!-- <div class="fb-login-button" onlogin="checkLoginState();" data-width="600" data-height="300" data-size="large"
+          data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false"></div> -->
+        <div class="row-margin-top">
+          <button type="button" onclick="checkFBlogin();" class="btn btn-default">Facebook LOGIN</button>
+        </div>
         <div id="status"></div>
         <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
         <div>
@@ -40,12 +42,9 @@
 </div>
 
 <script src="static/javascripts/fb_sdk.js"></script>
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous"
-  src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v16.0&appId=544423384484631&autoLogAppEvents=1"
-  nonce="NfCaqGg4"></script>
 <script src="static/javascripts/fb_login.js"></script>
 <!-- Load the JS SDK asynchronously -->
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-
+<!-- <script async defer crossorigin="anonymous"
+  src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v16.0&appId=544423384484631&autoLogAppEvents=1"
+  nonce="NfCaqGg4"></script> -->
 {% endblock %}

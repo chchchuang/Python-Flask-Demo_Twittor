@@ -56,9 +56,8 @@ def to_json(func):
 
 @to_json
 def API_FB_login():
-    data = json.loads(request.data)
-    userID = data.get("userID")
-    accessToken = data.get("accessToken")
+    userID = request.json["userID"]
+    accessToken = request.json["accessToken"]
     FBuser = User.query.filter_by(FBuserID = userID).first()
     if not FBuser:
         u = User(username = None, password = None, FBuserID = userID, FBaccessToken = accessToken)
