@@ -24,4 +24,3 @@ class Config():
         "consumer_key": "facebook app id",
         "consumer_secret": "facebook app secret"
     }
-    SECURITY_POST_LOGIN = "/profile"

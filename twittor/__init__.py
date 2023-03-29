@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_moment import Moment
+from flask_share import Share
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -11,6 +12,7 @@ login_manager = LoginManager()
 login_manager.login_view = "login" # 未登入時查看的頁面
 mail = Mail()
 moment = Moment()
+share = Share()
 
 from twittor.config import Config
 from twittor.route import index, login, logout, register, user, page_not_found, edit_profile, reset_password_request, password_reset, explore, user_activate, edit_tweet, API_FB_login
@@ -27,6 +29,7 @@ def create_app():
     login_manager.init_app(app)
     mail.init_app(app)
     moment.init_app(app)
+    share.init_app(app)
 
     @app.before_first_request
     def create_tables():

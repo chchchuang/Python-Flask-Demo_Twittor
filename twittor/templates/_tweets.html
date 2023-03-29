@@ -20,17 +20,30 @@
         </td>
         <td>
           <form action="{{ url_for('edit_tweet', id = tweet.id) }}" method="post">
+            {% if tweet.author == current_user %}
+            <a class="btn btn-outline-success" href="{{ url_for('edit_tweet', id = tweet.id) }}">Edit</a>
+            <input class="btn btn-outline-danger" type="submit" name="request_button" value="Delete">
+            {% endif %}
             {% if current_user.is_liking(tweet) %}
             <input class="btn btn-outline-success" type="submit" name="request_button" value="Unlike">
             {% else %}
             <input class="btn btn-outline-success" type="submit" name="request_button" value="Like">
             {% endif %}
             {{ tweet.beliked.count() }}
-            {% if tweet.author == current_user %}
-            <a class="btn btn-outline-success" href="{{ url_for('edit_tweet', id = tweet.id) }}">Edit</a>
-            <input class="btn btn-outline-danger" type="submit" name="request_button" value="Delete">
-            {% endif %}
           </form>
+        </td>
+        <td>
+          <h6 style="float:left;padding-top:5px">Share with: </h6>
+          <div class="shareon" style="overflow:hidden;width:600px;margin:auto;text-align:left">
+            <a class="twitter"></a>
+            <a class="facebook"></a>
+            <!-- FB App ID is required for the Messenger button to function -->
+            <!--  <a class="messenger" data-fb-app-id="0123456789012345"></a> -->
+            <a class="linkedin"></a>
+            <a class="reddit"></a>
+            <a class="telegram " data-text="Check this out!"></a>
+            <a class="whatsapp" data-text="Check this out!"></a>
+          </div>
         </td>
       </tr>
       <tr>

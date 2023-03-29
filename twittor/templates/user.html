@@ -21,13 +21,11 @@
                 <h3 class="fs-2">{{ user.username }}</h3>
               </td>
               <td>
-                {% if user == current_user %}
                 {% if current_user.FBuserID != None %}
                 <span class="badge bg-primary">Facebook</span>
                 <!-- <input id="btn" class="btn btn-warning btn-sm" type="submit" name="request_button" value="activate"> -->
                 {% else %}
                 <span class="badge bg-secondary">Twittor</span>
-                {% endif %}
                 {% endif %}
               </td>
             </tr>
