@@ -61,7 +61,7 @@ def API_FB_login():
     accessToken = data.get("accessToken")
     FBuser = User.query.filter_by(FBuserID = userID).first()
     if not FBuser:
-        u = User(FBuserID = userID, FBaccessToken = accessToken)
+        u = User(username = None, password = None, FBuserID = userID, FBaccessToken = accessToken)
         data = requests.get(
             "https://graph.facebook.com/me?fields=id,name,email&access_token=" + accessToken
         )
@@ -72,7 +72,7 @@ def API_FB_login():
         login_user(u, remember = True)
     else:
         login_user(FBuser, remember = True)
-    return "FB_login_success"
+    return "11"
     
 def logout():
     logout_user()

@@ -14,9 +14,12 @@ function FBlogin() {
                 async: false,
                 contentType: 'application/json',
                 success: function (data, textStatus, jqXHR) {
-                    if (data === 'FB_login_success') {
-                        location.replace('/');
+                    if (data == '11') {
+                        location.replace('/index');
                     }
+                },
+                error: function () {
+                    document.getElementById('status').innerHTML = 'Error login.';
                 },
             });
         },

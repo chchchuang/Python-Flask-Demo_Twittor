@@ -6,14 +6,10 @@ window.fbAsyncInit = function () {
         version: 'v16.0', // Use this Graph API version for this call.
     });
 
-    FB.AppEvents.logPageView();
-
-    FB.getLoginStatus(function (response) {
-        // Called after the JS SDK has been initialized.
-        statusChangeCallback(response); // Returns the login status.
-    });
+    // FB.AppEvents.logPageView();
 };
 
+// Load the SDK asynchronously
 (function (d, s, id) {
     var js,
         fjs = d.getElementsByTagName(s)[0];
