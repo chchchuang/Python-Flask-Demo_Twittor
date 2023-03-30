@@ -19,42 +19,46 @@
           <!-- {{ (tweet.create_time).strftime("%Y-%m-%d %H:%M:%S") }} -->
         </td>
         <td>
-          <form action="{{ url_for('edit_tweet', id = tweet.id) }}" method="post">
-            {% if tweet.author == current_user %}
-            <a class="btn btn-outline-success" href="{{ url_for('edit_tweet', id = tweet.id) }}">Edit</a>
-            {% endif %}
-          </form>
           {% if tweet.author == current_user %}
+          <a class="btn btn-outline-success" href="{{ url_for('edit_tweet', id = tweet.id) }}">Edit</a>
           <button type="button" onclick="tweet_delete({{tweet.id | tojson}});"
             class="btn btn-outline-danger">Delete</button>
           {% endif %}
-          {% if current_user.is_liking(tweet) %}
-          <button type="button" onclick="tweet_unlike({{tweet.id | tojson}});"
-            class="btn btn-outline-success">Unlike</button>
-          {% else %}
-          <button type="button" onclick="tweet_like({{tweet.id | tojson}});"
-            class="btn btn-outline-success">Like</button>
-          {% endif %}
-          {{ tweet.beliked.count() }}
-          <script src="static/javascripts/tweet_like.js"></script>
-
-        </td>
-        <td>
-          <h6 style="float:left;padding-top:5px">Share with: </h6>
-          <div class="shareon" style="overflow:hidden;width:600px;margin:auto;text-align:left">
-            <a class="twitter"></a>
-            <a class="facebook"></a>
-            <!-- FB App ID is required for the Messenger button to function -->
-            <!--  <a class="messenger" data-fb-app-id="0123456789012345"></a> -->
-            <a class="linkedin"></a>
-            <a class="reddit"></a>
-            <a class="telegram " data-text="Check this out!"></a>
-            <a class="whatsapp" data-text="Check this out!"></a>
-          </div>
         </td>
       </tr>
       <tr>
-        <td>{{ tweet.body }}</td>
+        <td>
+          <h5>{{ tweet.body }}</h5>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% if current_user.is_liking(tweet) %}
+          <button type="button" onclick="tweet_unlike({{tweet.id | tojson}});"
+            class="btn btn-outline-danger">Unlike</button>
+          <img src="/static/like.png" width="30" height="30" class="me-1" alt="Like">
+          {% else %}
+          <button type="button" onclick="tweet_like({{tweet.id | tojson}});" class="btn btn-warning">Like</button>
+          <img src="/static/unlike.png" width="30" height="30" class="me-1" alt="Unlike">
+          {% endif %}
+          <strong>{{ tweet.beliked.count() }}</strong>
+          <script src="static/javascripts/tweet_like.js"></script>
+
+          <div>
+            <h6 style="float:left;padding-top:10px">Share with: </h6>
+            <div class="shareon" style="overflow:hidden;width:600px;margin:auto;text-align:left">
+
+              <a class="twitter"></a>
+              <a class="facebook"></a>
+              <!-- FB App ID is required for the Messenger button to function -->
+              <!--  <a class="messenger" data-fb-app-id="0123456789012345"></a> -->
+              <a class="linkedin"></a>
+              <a class="reddit"></a>
+              <a class="telegram " data-text="Check this out!"></a>
+              <a class="whatsapp" data-text="Check this out!"></a>
+            </div>
+          </div>
+        </td>
       </tr>
     </table>
   </div>

@@ -20,6 +20,7 @@
               <td>
                 <h3 class="fs-2">{{ user.username }}</h3>
               </td>
+              <td> &nbsp; </td>
               <td>
                 {% if user.FBuserID != None %}
                 <span class="badge bg-primary">Facebook</span>
@@ -31,8 +32,11 @@
             </tr>
           </table>
         </form>
-        <p>{{ user.tweets.count() }} Posts &nbsp;&nbsp;&nbsp; {{ user.followers.count() }} Followers &nbsp;&nbsp;&nbsp;
-          {{ user.followed.count() }} Following</p>
+        <p>
+          <strong>{{ user.tweets.count() }}</strong> Posts &nbsp;&nbsp;&nbsp;
+          <strong>{{ user.followers.count() }}</strong> Followers &nbsp;&nbsp;&nbsp;
+          <strong>{{ user.followed.count() }}</strong> Following
+        </p>
         <form action="" method="post">
           {% if user != current_user %}
           {% if current_user.is_following(user) %}
