@@ -19,7 +19,7 @@ function FBlogin() {
                     }
                 },
                 error: function () {
-                    document.getElementById('status').innerHTML = 'Error Login.';
+                    document.getElementById('population').innerHTML = 'Error Login.';
                 },
             });
         },

@@ -22,15 +22,22 @@
           <form action="{{ url_for('edit_tweet', id = tweet.id) }}" method="post">
             {% if tweet.author == current_user %}
             <a class="btn btn-outline-success" href="{{ url_for('edit_tweet', id = tweet.id) }}">Edit</a>
-            <input class="btn btn-outline-danger" type="submit" name="request_button" value="Delete">
             {% endif %}
-            {% if current_user.is_liking(tweet) %}
-            <input class="btn btn-outline-success" type="submit" name="request_button" value="Unlike">
-            {% else %}
-            <input class="btn btn-outline-success" type="submit" name="request_button" value="Like">
-            {% endif %}
-            {{ tweet.beliked.count() }}
           </form>
+          {% if tweet.author == current_user %}
+          <button type="button" onclick="tweet_delete({{tweet.id | tojson}});"
+            class="btn btn-outline-danger">Delete</button>
+          {% endif %}
+          {% if current_user.is_liking(tweet) %}
+          <button type="button" onclick="tweet_unlike({{tweet.id | tojson}});"
+            class="btn btn-outline-success">Unlike</button>
+          {% else %}
+          <button type="button" onclick="tweet_like({{tweet.id | tojson}});"
+            class="btn btn-outline-success">Like</button>
+          {% endif %}
+          {{ tweet.beliked.count() }}
+          <script src="static/javascripts/tweet_like.js"></script>
+
         </td>
         <td>
           <h6 style="float:left;padding-top:5px">Share with: </h6>

@@ -182,17 +182,19 @@ def edit_tweet(id):
         return redirect(url_for("profile", username = current_user.username))
     # delete/(un)like tweet
     if request.method == "POST": # GET, POST必須大寫
-        # print(request.form.to_dict()) #key: submit.name, value: submit.value
-        if request.form["request_button"] == "Delete":
-            db.session.delete(t)
-            db.session.commit()
-        elif request.form["request_button"] == "Like":
+        # javascript fetch
+        data = request.get_json()
+        print(data)
+        if data["request_button"] == "Like":
             current_user.like(t)
             db.session.commit()
-        elif request.form["request_button"] == "Unlike":
+        elif data["request_button"] == "Unlike":
             current_user.unlike(t)
             db.session.commit()
-        return redirect(url_for("index"))
+        elif data["request_button"] == "Delete":
+            db.session.delete(t)
+            db.session.commit()
+        return data
     return render_template("edit_tweet.html", title = "Edit Tweet", form = form)
 
 def reset_password_request():
