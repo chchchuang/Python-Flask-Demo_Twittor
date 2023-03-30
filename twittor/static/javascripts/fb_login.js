@@ -44,7 +44,10 @@ function checkFBlogin() {
         console.log('statusChangeCallback' + response); // The current login status of the person.
         if (response.status === 'connected') {
             // Logged into your webpage and Facebook.
-            fetchUserDetail();
+            // fetchUserDetail();
+            FB.logout(function (response) {});
+            FBlogin();
+            console.log('please log into Facebook again for this website.');
         } else {
             // Not logged into your webpage or we are unable to tell.
             FBlogin();
