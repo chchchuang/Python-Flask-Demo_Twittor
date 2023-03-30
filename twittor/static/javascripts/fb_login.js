@@ -34,6 +34,7 @@ function fetchUserDetail() {
     FB.api('/me', function (response) {
         console.log('Successful login for: ' + response.name);
     });
+    location.replace('/index');
 }
 
 function checkFBlogin() {
