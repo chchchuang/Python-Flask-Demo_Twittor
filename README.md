@@ -40,7 +40,7 @@
 
 ### login
 
-> 1. 使用 Twittor 登入系統
+> 1. 使用 Twittor 帳號登入系統
 > 2. 支持第三方 Facebook 帳號登入
 <img width="1440" alt="Twittor-login page" src="https://user-images.githubusercontent.com/111694502/230837030-0fff7fd2-fe89-4848-90c1-a8906b136b0c.png">
 <img width="1440" alt="Twittor-FB login page" src="https://user-images.githubusercontent.com/111694502/230837280-658af4f6-0fee-4310-b191-99228c1a6082.png">
