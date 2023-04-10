@@ -10,6 +10,8 @@
 
 ## Architecture Diagram 架構圖
 
+![Twittor_Architecture](https://user-images.githubusercontent.com/111694502/230896354-4f0d9306-14bb-45d2-a423-4ed863124208.jpg)
+
 ## Prerequisites 使用環境
 * 前端: 
   * HTML
