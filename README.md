@@ -1,7 +1,6 @@
 # Python Flask Demo - Twittor
 
 >* 這是一個用Python Flask、JavaScript (AJAX, Fetch)、Bootstrap 、MySQL、Docker架設並部署在 AWS 的社交網站
->* 參考[repo](https://github.com/xiaopeng163/twittor)架構進行修改及新功能開發
 
 ## Demo 網址
 
@@ -39,7 +38,8 @@
 
 ### login
 
-> 使用 Twittor 登入系統或現有 Facebook 帳號登入
+> 1. 使用 Twittor 登入系統
+> 2. 支持第三方 Facebook 帳號登入
 <img width="1440" alt="Twittor-login page" src="https://user-images.githubusercontent.com/111694502/230837030-0fff7fd2-fe89-4848-90c1-a8906b136b0c.png">
 <img width="1440" alt="Twittor-FB login page" src="https://user-images.githubusercontent.com/111694502/230837280-658af4f6-0fee-4310-b191-99228c1a6082.png">
 
@@ -53,25 +53,39 @@
 
 ### reset password
 
-> 進行 email 驗證後修改密碼
+> 忘記密碼時, 進行 email 驗證後可以重設密碼
 <img width="1440" alt="Twittor-reset password" src="https://user-images.githubusercontent.com/111694502/230837975-53061cf2-d362-4914-9af1-ba4369c3c6a0.png">
 <img width="1128" alt="Twittor-reset email" src="https://user-images.githubusercontent.com/111694502/230838010-8870cf98-2bad-4559-aaea-1a1a8809593f.png">
 
 
 ### user profile/ (un)follow
 
-> 在 user 頁面編輯個人介紹, 且可 follow/unfollow 其他用戶
+> 1. 在 user 頁面可以編輯個人介紹
+> 2. 支持 follow/unfollow 其他用戶發文的推文
 <img width="1440" alt="Twittor-user page" src="https://user-images.githubusercontent.com/111694502/230838146-19b59be9-0abc-4787-8fe5-cf524c66923c.png">
 <img width="1440" alt="Twittor-follow:unfollow" src="https://user-images.githubusercontent.com/111694502/230838186-311d9c35-47de-446f-a8d5-40015a0fa132.png">
 
 
 ### tweet
 
-> 在 tweet 頁面進行貼文或修改刪除操作, 且能按讚分享貼文並顯示按讚數
+> 1. 在 tweet 頁面可以進行推文
+> 2. 支持修改及刪除自己的推文, 修改後會註明已編輯[Edited]
+> 3. 推文時間根據用戶本地時間顯示
 <img width="1440" alt="Twittor-tweet page" src="https://user-images.githubusercontent.com/111694502/230838894-0c517fbb-04af-4a69-8c95-3370ae44fb3a.png">
+
+
+### explore
+
+> 1. 查看其他貼文(包含未 follow 用戶)
+> 2. 支持按讚功能且顯示按讚數, 並可以分享到外部網站
+> 3. 貼文分頁載入(pagination), 減少卡頓可能
+<img width="1440" alt="Twittor-explore page" src="https://user-images.githubusercontent.com/111694502/230851393-46630dd2-0de7-4669-81ec-657dd1eb7ed7.png">
 
 
 ## Authors 關於作者
 * Author: **chchchuang**  
 * Update: 2023-04-10  
 * Contact: chchchuang@gmail.com
+
+## Reference 參考資料
+* 參考[repo](https://github.com/xiaopeng163/twittor)架構進行修改及新功能開發
