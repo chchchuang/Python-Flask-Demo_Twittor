@@ -1,6 +1,7 @@
 # Python Flask Demo - Twittor
 
 >* 這是一個用Python Flask、JavaScript (AJAX, Fetch)、Bootstrap 、MySQL、Docker架設並部署在 AWS 的社交網站
+>* 仿Twitter設計的Demo網站, 可以進行推文及追蹤使用者的發文, 並支持第三方登入
 
 ## Demo 網址
 
@@ -32,6 +33,8 @@
   * [Docker](https://www.docker.com/) (Docker-Compose)
   * [NGINX](https://www.nginx.com/)
   * [Certbot (Let's encrype)](https://certbot.eff.org/)
+* 緩存:
+  * [Redis](https://redis.io/)(TODO)
 * 資料庫: 
   * [MySQL](https://www.mysql.com/)
   * [SQLite](https://www.sqlite.org/index.html) (local開發時使用)
